@@ -1,0 +1,127 @@
+I am working on Windows and the first thing I did was connect the AVRISP to my computer and tried to flash the firmware by changing the directory to arduino-1.6.3/hardware/tools/avr/bin, then I type the command :"avrdude -P /dev/ttyACM0 -b 19200 -c avrisp -C ../etc/avrdude.conf -pm32u4 -U flash:w:/Desktop/firmwre_en_dk/finalkey.bin" I then get the error
+"ser_open():system can't open device “\\.\COM1”:the system cannot find the file specified"
+
+
+
+
+
+
+I then changed the "-P" part to "-P //./COM3" because my ISP is connected to port 3 in my computer. 
+C:\Users\Tommy Li\Desktop\arduino-1.6.3\hardware\tools\avr\bin> avrdude -P //./COM3 -b 19200 -c avrisp -C ../etc/avrdude.conf -pm32u4 -U flash:w:/Desktop/firmwr
+e_en_dk/finalkey.bin
+avrdude: stk500_getsync() attempt 1 of 10: not in sync: resp=0x15
+avrdude: stk500_getsync() attempt 2 of 10: not in sync: resp=0x15
+
+
+avrdude: stk500_getparm(): (a) protocol error, expect=0x14, resp=0x14
+
+avrdude: stk500_getparm(): (a) protocol error, expect=0x14, resp=0x01
+avrdude: stk500_initialize(): (a) protocol error, expect=0x14, resp=0x10
+avrdude: initialization failed, rc=-1
+         Double check connections and try again, or use -F to override
+         this check.
+
+avrdude: stk500_disable(): unknown response=0x12
+
+avrdude done.  Thank you.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I re-upload AVRISP to ISP and set programmer as AVRISP (getting closwer)
+C:\Users\Tommy Li\Desktop\arduino-1.6.3\hardware\tools\avr\bin> avrdude -P //./C
+OM3 -b 19200 -c avrisp -C ../etc/avrdude.conf -pm32u4 -U flash:w:/Desktop/firmwr
+e_en_dk/finalkey.bin
+
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.09s
+
+avrdude: Device signature = 0x1e9587
+avrdude: NOTE: "flash" memory has been specified, an erase cycle will be perform
+ed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: reading input file "/Desktop/firmwre_en_dk/finalkey.bin"
+avrdude: error opening /Desktop/firmwre_en_dk/finalkey.bin: No such file or dire
+ctory
+avrdude: input file /Desktop/firmwre_en_dk/finalkey.bin auto detected as invalid
+ format
+avrdude: can't open input file /Desktop/firmwre_en_dk/finalkey.bin: No such file
+ or directory
+avrdude: read from file '/Desktop/firmwre_en_dk/finalkey.bin' failed
+
+avrdude: safemode: Fuses OK (H:FB, E:D8, L:DE)
+
+avrdude done.  Thank you.
+
+
+
+
+
+
+I dotted out (looks like it works)
+C:\Users\Tommy Li\Desktop\arduino-1.6.3\hardware\tools\avr\bin> avrdude -P //./C
+OM3 -b 19200 -c avrisp -C ../etc/avrdude.conf -pm32u4 -U flash:w:../../../../../
+../Desktop/firmwre_en_dk/finalkey.bin
+
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.08s
+
+avrdude: Device signature = 0x1e9587
+avrdude: NOTE: "flash" memory has been specified, an erase cycle will be perform
+ed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: reading input file "../../../../../../Desktop/firmwre_en_dk/finalkey.bi
+n"
+avrdude: input file ../../../../../../Desktop/firmwre_en_dk/finalkey.bin auto de
+tected as raw binary
+avrdude: writing flash (32110 bytes):
+
+Writing | ################################################## | 100% 41.55s
+
+avrdude: 32110 bytes of flash written
+avrdude: verifying flash memory against ../../../../../../Desktop/firmwre_en_dk/
+finalkey.bin:
+avrdude: load data flash data from input file ../../../../../../Desktop/firmwre_
+en_dk/finalkey.bin:
+avrdude: input file ../../../../../../Desktop/firmwre_en_dk/finalkey.bin auto de
+tected as raw binary
+avrdude: input file ../../../../../../Desktop/firmwre_en_dk/finalkey.bin contain
+s 32110 bytes
+avrdude: reading on-chip flash data:
+
+Reading | ################################################## | 100% 26.74s
+
+avrdude: verifying ...
+avrdude: 32110 bytes of flash verified
+
+avrdude: safemode: Fuses OK (H:FB, E:D8, L:DE)
+
+avrdude done.  Thank you.
